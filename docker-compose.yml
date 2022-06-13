@@ -1,0 +1,34 @@
+version: "3.3"
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx.Dockerfile
+    ports:
+      - "80:8080"
+    links:
+      - fpm
+    volumes:
+      - ./:/var/www/test
+  fpm:
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/fpm.Dockerfile
+    volumes:
+      - ./:/var/www/test
+    links:
+      - db:db
+    depends_on:
+      - db
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: test
+      MARIADB_DATABASE: test
+      MARIADB_USER: test
+      MARIADB_PASSWORD: test
+    ports:
+      - "3306:3306"
