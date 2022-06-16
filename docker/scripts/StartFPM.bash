@@ -19,6 +19,7 @@ fi
 chmod -R 777 /var/www/test/storage;
 
 cd /var/www/test/;
+php artisan config:clear;
 php artisan migrate;
 php artisan update:laravel:blog:data;
 if ! [ -d /var/www/test/node_modules/ ]; then
