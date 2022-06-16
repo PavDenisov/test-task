@@ -31,4 +31,4 @@ services:
       MARIADB_USER: test
       MARIADB_PASSWORD: test
     ports:
-      - "3306:3306"
+      - "1069:3306"
